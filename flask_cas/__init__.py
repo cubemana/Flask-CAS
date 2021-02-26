@@ -14,8 +14,13 @@ except ImportError:
     from flask import _request_ctx_stack as stack
 
 from . import routing
-
+# support current_user for every web page
+from .utils import current_user, _user_context_processor
 from functools import wraps
+
+__all__ = [
+    'current_user'
+]
 
 class CAS(object):
     """
@@ -64,9 +69,12 @@ class CAS(object):
         else:
             app.teardown_request(self.teardown)
 
+        # support current_user for every web page
+        app.context_processor(_user_context_processor)
+
     def teardown(self, exception):
         ctx = stack.top
-    
+
     @property
     def app(self):
         return self._app or current_app
@@ -86,11 +94,14 @@ class CAS(object):
         return flask.session.get(
             self.app.config['CAS_TOKEN_SESSION_KEY'], None)
 
+
 def login():
     return flask.redirect(flask.url_for('cas.login', _external=True))
 
+
 def logout():
     return flask.redirect(flask.url_for('cas.logout', _external=True))
+
 
 def login_required(function):
     @wraps(function)
