@@ -17,11 +17,8 @@ except ImportError:
 from functools import wraps
 
 from . import routing
-# support current_user for every web page
 from .__about__ import __version__
-from .mixins import UserMixin, AnonymousUserMixin
-from .utils import (current_user, _user_context_processor)
-from .signals import (user_logged_in, user_logged_out)
+from .utils import _user_context_processor
 
 class CAS(object):
     """
