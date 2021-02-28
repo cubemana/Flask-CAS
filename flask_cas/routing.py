@@ -52,7 +52,7 @@ def login():
                 redirect_url = flask.url_for(
                     current_app.config['CAS_AFTER_LOGIN'])
             
-            # send logged event
+            # trigger logged in event
             user_logged_in.send(current_app._get_current_object(), user=_get_user())
         else:
             del flask.session[cas_token_session_key]
@@ -90,7 +90,7 @@ def logout():
 
     current_app.logger.debug('Redirecting to: {0}'.format(redirect_url))
 
-    # send logout event
+    # trigger logged out event
     user_logged_out.send(current_app._get_current_object(), user=user)
 
     return flask.redirect(redirect_url)
