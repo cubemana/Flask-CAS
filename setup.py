@@ -74,6 +74,7 @@ if __name__ == "__main__":
         install_requires = [
             "Flask",
             "xmltodict",
+            "blinker"
         ],
         tests_require = [
             "Nose",

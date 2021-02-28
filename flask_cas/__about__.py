@@ -1,0 +1,10 @@
+__title__ = 'Flask-CAS'
+__description__ = 'Flask extension for CAS'
+__url__ = 'https://github.com/cameronbwhite/Flask-CAS'
+__version_info__ = ('1', '1', '0')
+__version__ = '.'.join(__version_info__)
+__author__ = 'Cameron Brandon White'
+__author_email__ = 'cameronbwhite90@gmail.com'
+__maintainer__ = 'Cameron Brandon White'
+__license__ = 'MIT'
+__copyright__ = '(c) 2014, Cameron Brandon White'

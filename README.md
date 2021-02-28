@@ -25,6 +25,11 @@ authenticate against your favorite CAS Server!
 
 http://flask-cas-extension-demo.cameronbwhite.com/
 
+## New version (1.1.0) Change log ##
+
+- add current_user object (similar to flash-login)
+- add single for connect event: user_logged_in, user_logged_out
+
 ## Installation ##
 
 ### PyPI ###
@@ -151,3 +156,21 @@ def route_root():
         display_name = cas.attributes['cas:displayName']
     )
 ```
+
+
+### Subscribing to Signals ###
+AFTER BLINKER HAS BEEN INSTALLED, An application can receive event notifications by using the event signal’s connect_via() decorator:
+
+from flask_cas import user_logged_in
+
+@flask_cas.user_logged_in.connect_via(app)
+def _after_login_hook(sender, user, **extra):
+    sender.logger.info('user logged in')
+
+For all Flask-CAS event signals:
+- sender points to the app, and
+- user points to the user that is associated with this event.
+
+Supported events:
+- user_logged_in: after logged in，it will be triggered
+- user_logged_out: after logged out，it will be triggered

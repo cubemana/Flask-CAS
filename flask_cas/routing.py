@@ -4,7 +4,8 @@ from flask import current_app
 from .cas_urls import create_cas_login_url
 from .cas_urls import create_cas_logout_url
 from .cas_urls import create_cas_validate_url
-
+from .signals import (user_logged_in, user_logged_out)
+from .utils import _get_user
 
 try:
     from urllib import urlopen
@@ -50,6 +51,9 @@ def login():
             else:
                 redirect_url = flask.url_for(
                     current_app.config['CAS_AFTER_LOGIN'])
+            
+            # send logged event
+            user_logged_in.send(current_app._get_current_object(), user=_get_user())
         else:
             del flask.session[cas_token_session_key]
 
@@ -63,6 +67,7 @@ def logout():
     """
     When the user accesses this route they are logged out.
     """
+    user = _get_user()
 
     cas_username_session_key = current_app.config['CAS_USERNAME_SESSION_KEY']
     cas_attributes_session_key = current_app.config['CAS_ATTRIBUTES_SESSION_KEY']
@@ -84,6 +89,10 @@ def logout():
             current_app.config['CAS_LOGOUT_ROUTE'])
 
     current_app.logger.debug('Redirecting to: {0}'.format(redirect_url))
+
+    # send logout event
+    user_logged_out.send(current_app._get_current_object(), user=user)
+
     return flask.redirect(redirect_url)
 
 
