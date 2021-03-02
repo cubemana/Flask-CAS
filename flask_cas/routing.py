@@ -151,6 +151,6 @@ def validate(ticket):
 
             flask.session[cas_attributes_session_key] = attributes
     else:
-        current_app.logger.debug("invalid")
+        current_app.logger.debug("Invalid ticket")
 
     return isValid
