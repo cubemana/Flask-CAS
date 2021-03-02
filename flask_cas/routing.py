@@ -130,7 +130,7 @@ def validate(ticket):
         current_app.logger.error("CAS returned unexpected result")
 
     if isValid:
-        current_app.logger.debug("valid")
+        current_app.logger.debug("Valid ticket")
         xml_from_dict = xml_from_dict["cas:serviceResponse"]["cas:authenticationSuccess"]
         username = xml_from_dict["cas:user"]
         flask.session[cas_username_session_key] = username
