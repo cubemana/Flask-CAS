@@ -57,5 +57,5 @@ docs/_build/
 .vscode
 
 # VirtualEnv
-.venv/
+.venv
 
