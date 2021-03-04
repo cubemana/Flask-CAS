@@ -16,8 +16,7 @@ except ImportError:
 
 from functools import wraps
 
-from . import routing
-from .__about__ import __version__
+from . import routes
 from .utils import _user_context_processor
 
 class CAS(object):
@@ -58,7 +57,7 @@ class CAS(object):
         # Requires CAS 2.0
         app.config.setdefault('CAS_AFTER_LOGOUT', None)
         # Register Blueprint
-        app.register_blueprint(routing.blueprint, url_prefix=url_prefix)
+        app.register_blueprint(routes.blueprint, url_prefix=url_prefix)
 
         # Use the newstyle teardown_appcontext if it's available,
         # otherwise fall back to the request context
