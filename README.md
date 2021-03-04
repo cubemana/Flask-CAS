@@ -161,11 +161,14 @@ def route_root():
 ### Subscribing to Signals ###
 AFTER BLINKER HAS BEEN INSTALLED, An application can receive event notifications by using the event signal’s connect_via() decorator:
 
+```python
 from flask_cas import user_logged_in
 
 @flask_cas.user_logged_in.connect_via(app)
 def _after_login_hook(sender, user, **extra):
     sender.logger.info('user logged in')
+
+```
 
 For all Flask-CAS event signals:
 - sender points to the app, and
